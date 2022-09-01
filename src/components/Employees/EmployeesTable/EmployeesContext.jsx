@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 const MAX = 100000;
 const MIN = 5000;
@@ -7,7 +8,8 @@ const EmployeesContext = createContext();
 export const EmployeesProvider = ({ children }) => {
   const [employees, setEmployees] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+
+  const [storedValue] = useLocalStorage("dealtail");
 
   const ratingEmployeeById = (employeeId, ratingValue) => {
     let employee = employees.filter((emp) => emp.id === employeeId)[0];
@@ -38,23 +40,24 @@ export const EmployeesProvider = ({ children }) => {
 
       setEmployees(updatedEmployees);
       setIsLoading(false);
-      setIsError(false);
     } catch (err) {
       console.log("#ERR: ", err.message);
       setIsLoading(false);
-      setIsError(true);
     }
   };
 
   useEffect(() => {
-    fetchEmployees();
-  }, []);
+    if (!storedValue) {
+      fetchEmployees();
+    } else {
+      setEmployees(storedValue);
+    }
+  }, [storedValue]);
 
   return (
     <EmployeesContext.Provider
       value={{
         employees,
-        isError,
         isLoading,
         ratingEmployeeById,
       }}

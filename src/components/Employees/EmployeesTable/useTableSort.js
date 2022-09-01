@@ -1,20 +1,29 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const useTableSort = (employeesData) => {
-  const [orderDirection, setOrderDirection] = useState("asc");
-  const [orderKey, setOrderKey] = useState("salary");
+const useTableSort = (employeesData, initKey, initDirection) => {
+  const [orderDirection, setOrderDirection] = useState(initDirection);
+  const [orderKey, setOrderKey] = useState(initKey);
+  const [search, setSearch] = useSearchParams();
 
+  console.log("XXX: ", employeesData);
   const orderByDirection = (result) =>
     orderDirection === "asc" ? result * -1 : result;
 
   const sortSalary = (a, b) => b[orderKey] - a[orderKey];
 
-  const sortRating = (a, b) => a[orderKey] - b[orderKey];
+  const sortRating = (a, b) => {
+    return a[orderKey] - b[orderKey];
+  };
 
   const onColumnSort = (key) => (ev) => {
     const isAsc = orderKey === key && orderDirection === "asc";
-
-    setOrderDirection(isAsc ? "desc" : "asc");
+    const order = isAsc ? "desc" : "asc";
+    setSearch({
+      sort_by: key,
+      sort_order: order,
+    });
+    setOrderDirection(order);
     setOrderKey(key);
   };
 

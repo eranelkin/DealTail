@@ -1,18 +1,13 @@
 import { useState } from "react";
 
-export const useLocalStorage = (keyName, defaultValue) => {
+export const useLocalStorage = (keyName) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const value = window.localStorage.getItem(keyName);
 
-      if (value) {
-        return JSON.parse(value);
-      } else {
-        window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
-        return defaultValue;
-      }
+      return value ? JSON.parse(value) : null;
     } catch (err) {
-      return defaultValue;
+      return null;
     }
   });
 
@@ -23,5 +18,14 @@ export const useLocalStorage = (keyName, defaultValue) => {
     setStoredValue(newValue);
   };
 
-  return [storedValue, setValue];
+  const clearStorage = () => {
+    try {
+      window.localStorage.removeItem(keyName);
+    } catch (err) {
+      console.log("ERROR: remove from localStorage");
+    }
+    setStoredValue(null);
+  };
+
+  return [storedValue, setValue, clearStorage];
 };

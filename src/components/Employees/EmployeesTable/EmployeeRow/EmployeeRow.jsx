@@ -20,7 +20,7 @@ const EmployeeRow = ({ employee }) => {
         <SalaryCell salary={employee.salary} />
       </TableCell>
       <TableCell align="right">
-        <RatingCell employeeId={employee.id} />
+        <RatingCell employeeId={employee.id} rating={employee.rating} />
       </TableCell>
     </TableRow>
   );

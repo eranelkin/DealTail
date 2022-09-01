@@ -4,8 +4,8 @@ import Rating from "@mui/material/Rating";
 import { useEmployees } from "../../EmployeesContext";
 import PropTypes from "prop-types";
 
-const RatingCell = ({ employeeId }) => {
-  const [ratingValue, setRatingValue] = useState(0);
+const RatingCell = ({ employeeId, rating = 0 }) => {
+  const [ratingValue, setRatingValue] = useState(rating);
   const { ratingEmployeeById } = useEmployees();
 
   const handleRatingOnChange = (event, newRating) => {

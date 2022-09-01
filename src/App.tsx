@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import EmployeesTable from "./components/Employees/EmployeesTable/EmployeesTable";
+import EmployeesContainer from "./components/Employees/EmployeesContainer/EmployeesContainer";
 import HomePage from "./components/HomePage/HomePage";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { EmployeesProvider } from "./components/Employees/EmployeesTable/EmployeesContext";
 
 import "./App.css";
@@ -13,10 +14,11 @@ export default function App() {
         path="/employees"
         element={
           <EmployeesProvider>
-            <EmployeesTable />
+            <EmployeesContainer />
           </EmployeesProvider>
         }
       />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

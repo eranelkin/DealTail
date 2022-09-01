@@ -1,5 +1,6 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSearchParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -22,17 +23,30 @@ const {
 } = translations;
 
 const EmployeesTable = () => {
-  const { employees, isLoading, isError } = useEmployees();
+  const { employees, isLoading } = useEmployees();
+  const [search, setSearch] = useSearchParams();
   const [sortedEmployees, orderKey, orderDirection, onColumnSort] =
-    useTableSort(employees);
+    useTableSort(
+      employees,
+      search.get("sort_by") || "salary",
+      search.get("sort_order") || "asc"
+    );
 
-  // console.log("XXX: ", employees);
+  useEffect(() => {
+    if (!search.get("sort_by") || !search.get("sort_order")) {
+      setSearch({
+        sort_by: "salary",
+        sort_order: "asc",
+      });
+    }
+  }, [search]);
+
   return isLoading === "loading" ? (
     <div className="loading">
       <CircularProgress disableShrink />
     </div>
   ) : (
-    <div className="employees-page">
+    <div>
       <Typography variant="h5" component="div" className="page-title">
         {translations.employees.title}
       </Typography>
