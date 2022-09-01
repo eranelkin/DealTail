@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import { useEmployees } from "../../EmployeesContext";
 import PropTypes from "prop-types";
@@ -19,6 +18,11 @@ const RatingCell = ({ employeeId, rating = 0 }) => {
       onChange={handleRatingOnChange}
     />
   );
+};
+
+RatingCell.propTypes = {
+  employeeId: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
 };
 
 export default RatingCell;
