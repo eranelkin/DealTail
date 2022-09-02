@@ -41,7 +41,7 @@ const EmployeesTable = () => {
 
   return (
     <div>
-      <Typography variant="h5" component="div" className="page-title">
+      <Typography variant="h5" className="page-title">
         {translations.employees.title}
       </Typography>
       <TableContainer component={Paper} sx={{ maxWidth: 1400 }} className="">
