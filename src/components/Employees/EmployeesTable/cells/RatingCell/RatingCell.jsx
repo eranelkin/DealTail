@@ -7,7 +7,7 @@ const RatingCell = ({ employeeId, rating = 0 }) => {
   const [ratingValue, setRatingValue] = useState(rating);
   const { ratingEmployeeById } = useEmployees();
 
-  const handleRatingOnChange = (event, newRating) => {
+  const handleRatingOnChange = (ev, newRating) => {
     ratingEmployeeById(employeeId, newRating);
     setRatingValue(newRating);
   };

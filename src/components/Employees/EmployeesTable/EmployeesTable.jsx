@@ -1,5 +1,4 @@
 import React, { memo, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSearchParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import EmployeeRow from "./EmployeeRow/EmployeeRow";
 import useTableSort from "./useTableSort";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useEmployees } from "./EmployeesContext";
 import { translations } from "../../../translations/translations";
 
@@ -23,7 +21,7 @@ const {
 } = translations;
 
 const EmployeesTable = () => {
-  const { employees, isLoading } = useEmployees();
+  const { employees } = useEmployees();
   const [search, setSearch] = useSearchParams();
   const [sortedEmployees, orderKey, orderDirection, onColumnSort] =
     useTableSort(
@@ -41,11 +39,7 @@ const EmployeesTable = () => {
     }
   }, [search]);
 
-  return isLoading === "loading" ? (
-    <div className="loading">
-      <CircularProgress disableShrink />
-    </div>
-  ) : (
+  return (
     <div>
       <Typography variant="h5" component="div" className="page-title">
         {translations.employees.title}
@@ -86,10 +80,6 @@ const EmployeesTable = () => {
       </TableContainer>
     </div>
   );
-};
-
-EmployeesTable.propTypes = {
-  employees: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default memo(EmployeesTable);
