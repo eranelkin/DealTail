@@ -37,7 +37,7 @@ const EmployeesTable = () => {
         sort_order: "asc",
       });
     }
-  }, [search]);
+  }, [search, setSearch]);
 
   return (
     <div>
@@ -45,7 +45,7 @@ const EmployeesTable = () => {
         {translations.employees.title}
       </Typography>
       <TableContainer component={Paper} sx={{ maxWidth: 1400 }} className="">
-        <Table sx={{ minWidth: 650 }} stickyHeader className="">
+        <Table sx={{ minWidth: 650 }} stickyHeader>
           <TableHead>
             <TableRow className="header-row">
               <TableCell style={{ width: 335 }}>{headers.name}</TableCell>

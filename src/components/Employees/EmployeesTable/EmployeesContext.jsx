@@ -32,21 +32,21 @@ export const EmployeesProvider = ({ children }) => {
     });
   };
 
-  const fetchEmployees = async () => {
-    try {
-      const data = await fetch("https://jsonplaceholder.typicode.com/users");
-      const response = await data.json();
-      const updatedEmployees = enrichEmployees(response);
-
-      setEmployees(updatedEmployees);
-      setIsLoading(false);
-    } catch (err) {
-      console.log("#ERR: ", err.message);
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const data = await fetch("https://jsonplaceholder.typicode.com/users");
+        const response = await data.json();
+        const updatedEmployees = enrichEmployees(response);
+
+        setEmployees(updatedEmployees);
+        setIsLoading(false);
+      } catch (err) {
+        console.log("#ERR: ", err.message);
+        setIsLoading(false);
+      }
+    };
+
     if (!storedValue) {
       fetchEmployees();
     } else {

@@ -14,17 +14,19 @@ export const useLocalStorage = (keyName) => {
   const setValue = (newValue) => {
     try {
       window.localStorage.setItem(keyName, JSON.stringify(newValue));
-    } catch (err) {}
-    setStoredValue(newValue);
+      setStoredValue(newValue);
+    } catch (err) {
+      setStoredValue(null);
+    }
   };
 
   const clearStorage = () => {
     try {
       window.localStorage.removeItem(keyName);
+      setStoredValue(null);
     } catch (err) {
       console.log("ERROR: remove from localStorage");
     }
-    setStoredValue(null);
   };
 
   return [storedValue, setValue, clearStorage];

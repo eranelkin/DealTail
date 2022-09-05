@@ -22,7 +22,7 @@ const EmployeesContainer = () => {
 
   return (
     <div className="employees-container">
-      {isLoading ? (
+      {isLoading && !employees ? (
         <div className="loading">
           <CircularProgress disableShrink />
         </div>
